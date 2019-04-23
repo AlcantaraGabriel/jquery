@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript">
+      
+      $(document).ready(function(){
+          
+          $( "#calc" ).click(function(){
+          $("#idFormSim").fadeOut();
+          $('#idFormMeg').fadeOut();
+          $("#idformuCalc").delay(500).fadeIn();
+          });
+          
+          $('#parc').click(function(){
+          $("#idformuCalc").fadeOut();
+          $('#idFormMeg').fadeOut();
+
+          $("#idFormSim").delay(500).fadeIn();
+
+          });
+
+
+          $( "#meg" ).click(function(){
+          $("#idFormSim").fadeOut();
+          $("#idformuCalc").fadeOut();
+          $('#idFormMeg').delay(500).fadeIn();
+          
+          });
+
+          jQuery('input').on('keyup',function(){
+            var x = parseInt(jQuery('#num1').val() != '' ? jQuery('#num1').val() : 0);
+    
+            var y = parseInt(jQuery('#num2').val() != '' ? jQuery('#num2').val() : 0);
+    
+            if ($("#op").val() =='+') {
+                  jQuery('#resultSum').val((x + y));
+  
+            }else if($("#op").val() =='-'){
+                  jQuery('#resultSum').val((x - y));
+            }else if($("#op").val() =='*'){
+                  jQuery('#resultSum').val((x * y));
+            }else if($("#op").val() =='/'){
+                  jQuery('#resultSum').val((x / y));
+            }else if($("#op").val() =='%'){
+                  jQuery('#resultSum').val((x % y));
+            }else if($("#op").val() =='='){
+                  jQuery('#resultSum').val((x == y));
+            }
+
+  
+          });
+
+          
+
+        });
+      
+
+          
+      
+  </script>
+
+
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header" id="menu">
+          <a class="navbar-brand" href="#"><button id ="calc" type="button" class="btn btn-outline-primary">Calculadora</button></a>
+          <a class="navbar-brand" href="#"><button id ="parc" type="button" class="btn btn-outline-primary">Parcelamento</button></a>
+          <a class="navbar-brand" href="#"><button id ="meg" type="button" class="btn btn-outline-primary">MegaSena</button></a>
+        </div>
+      </div>
+    </nav>
+
+    
+      
+        <div id="idformuCalc" style="display: none">
+          <form>
+            <input type="text" id="num1" value="">
+            <select id="op">
+              <option>+</option>
+              <option>-</option>
+              <option>*</option>
+              <option>/</option>
+              <option>%</option>
+              <option>=</option>
+            </select>
+            <input type="text" id="num2" value="">=
+            <input type="text" id="resultSum" value="CLICK HERE AND PRESS ENTER">
+
+
+
+          </form>
+        </div>
+
+
+      <div id= "idFormSim" style="display: none">
+            <h2>Simulador:</h2>
+            <form>
+                Valor: <input type="text" id="valor" class="input-group mb-3">
+                Qtd parcelar:<input type="text" id="nparcelas" class="input-group mb-3">
+                <button class="btn btn-primary" type="submit">Simular</button>
+
+            </form>
+      </div>
+
+      <div id="idFormMeg" style="display: none">
+        <form>
+          Clique para gerar números:
+          <button class="btn btn-primary" type="submit">Calcular</button>
+        
+        </form>
+      </div>
+
+</body>
+</html>
