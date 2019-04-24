@@ -30,38 +30,58 @@
           $('#idFormMeg').delay(500).fadeIn();
           
           });
+      });
 
-          jQuery('input').on('keyup',function(){
-            var x = parseInt(jQuery('#num1').val() != '' ? jQuery('#num1').val() : 0);
-    
-            var y = parseInt(jQuery('#num2').val() != '' ? jQuery('#num2').val() : 0);
-    
-            if ($("#op").val() =='+') {
-                  jQuery('#resultSum').val((x + y));
-  
-            }else if($("#op").val() =='-'){
-                  jQuery('#resultSum').val((x - y));
-            }else if($("#op").val() =='*'){
-                  jQuery('#resultSum').val((x * y));
-            }else if($("#op").val() =='/'){
-                  jQuery('#resultSum').val((x / y));
-            }else if($("#op").val() =='%'){
-                  jQuery('#resultSum').val((x % y));
-            }else if($("#op").val() =='='){
-                  jQuery('#resultSum').val((x == y));
-            }
 
-  
-          });
+     function calFunc(){
+            var x = eval($('#num1').val() != '' ? $('#num1').val() : 0);
+            var y = eval($('#num2').val() != '' ? $('#num2').val() : 0);
+            var o =  ($('#op').val() != '' ? $('#op').val() : 0);
+
+            var result = eval("x "+o+" y");
+            $('#resultSum').val(result);
+
+    };
+
+    function fazConta(){
+          var parcelas = parseInt($('#nparcelas').val() != '' ? $('#nparcelas').val() : 0);
+          var val = parseInt($('#valor').val() != '' ? $('#valor').val() : 0);
+          
+
+
+
+          if(parcelas>5){
+            val = val +(val*0.1);
+          }
 
           
 
-        });
-      
+          var s = "<table class='table'><tr><th scope='col'>Parcela nº</th><th scope='col'>Valor(R$)</th></tr>";
+                for (var i = 1; i <= parcelas; i++) {
+                  s+="<tr>";
+                  s+="<th>"+i+"</th>";
+                  s+="<th>"+val/parcelas+"</th></tr>";
+          }
+          s+="</table>"
 
-          
+          $("#displayResult").empty();
+          $("#displayResult").append(s);
+      };
+
+     
+   function funMega(){
+      var s ="";
+      for (var i = 0; i < 6; i++) {
+          var n1 = parseInt(Math.random()*60);
+          s+=n1+ " ";
+      }
+
+      $("#displayNumMeg").empty();
+      $("#displayNumMeg").append(s);
+   };
       
   </script>
+   
 
 
 </head>
@@ -88,10 +108,12 @@
               <option>*</option>
               <option>/</option>
               <option>%</option>
-              <option>=</option>
+              <option>==</option>
             </select>
             <input type="text" id="num2" value="">=
-            <input type="text" id="resultSum" value="CLICK HERE AND PRESS ENTER">
+            <input type="text" id="resultSum" value="RESULT HERE">
+            <button class="btn btn-primary" id="simu" onclick="calFunc()">Resultado</button>
+
 
 
 
@@ -102,17 +124,18 @@
       <div id= "idFormSim" style="display: none">
             <h2>Simulador:</h2>
             <form>
-                Valor: <input type="text" id="valor" class="input-group mb-3">
-                Qtd parcelar:<input type="text" id="nparcelas" class="input-group mb-3">
-                <button class="btn btn-primary" type="submit">Simular</button>
+                Valor: <input type="text" id="valor" class="input-group mb-3" value=''>
+                Qtd parcelar:<input type="text" id="nparcelas" class="input-group mb-3" value=''>
+                <button class="btn btn-primary" id="simu" onclick="fazConta()">Simular</button>
 
             </form>
+            <div id="displayResult"></div>
       </div>
 
       <div id="idFormMeg" style="display: none">
         <form>
-          Clique para gerar números:
-          <button class="btn btn-primary" type="submit">Calcular</button>
+           <div id="displayNumMeg">Clique para gerar números:</div>
+          <button class="btn btn-primary" type="submit" id="btMegaSena" onclick="funMega()">Calcular</button>
         
         </form>
       </div>
