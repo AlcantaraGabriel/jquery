@@ -1,12 +1,165 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+  <title></title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript">
+      
+      $(document).ready(function(){
+          
+          $( "#calc" ).click(function(){
+          $("#idFormSim").fadeOut();
+          $('#idFormMeg').fadeOut();
+          $("#idformuCalc").delay(500).fadeIn();
+          });
+          
+          $('#parc').click(function(){
+          $("#idformuCalc").fadeOut();
+          $('#idFormMeg').fadeOut();
+
+          $("#idFormSim").delay(500).fadeIn();
+
+          });
+
+
+          $( "#meg" ).click(function(){
+          $("#idFormSim").fadeOut();
+          $("#idformuCalc").fadeOut();
+          $('#idFormMeg').delay(500).fadeIn();
+          
+          });
+      });
+
+
+     function calFunc(){
+            var x = eval($('#num1').val() != '' ? $('#num1').val() : 0);
+            var y = eval($('#num2').val() != '' ? $('#num2').val() : 0);
+            var o =  ($('#op').val() != '' ? $('#op').val() : 0);
+
+            var result = eval("x "+o+" y");
+            $('#resultSum').val(result);
+
+    };
+
+    function fazConta(){
+          var parcelas = parseInt($('#nparcelas').val() != '' ? $('#nparcelas').val() : 0);
+          var val = parseInt($('#valor').val() != '' ? $('#valor').val() : 0);
+          
+
+
+
+          if(parcelas>5){
+            val = val +(val*0.1);
+          }
+
+          
+
+          var s = "<table class='table'><tr><th scope='col'>Parcela nº</th><th scope='col'>Valor(R$)</th></tr>";
+                for (var i = 1; i <= parcelas; i++) {
+                  s+="<tr>";
+                  s+="<th>"+i+"</th>";
+                  s+="<th>"+val/parcelas+"</th></tr>";
+          }
+          s+="</table>"
+
+          $("#displayResult").empty();
+          $("#displayResult").append(s);
+      };
+
+     
+   function funMega(){
+      
+      var vetRef=[]
+      var vetNum = [-1,-1,-1,-1,-1,-1];   
+
+      for (var i =0; i <=60; i++) {
+          vetRef.push(false);
+          if(i<6){
+            var n1;
+            do{
+              n1 = parseInt(Math.random()*60);
+            }while(vetRef[n1]==true);
+
+            vetRef[n1] =true;
+            vetNum[i]=n1;
+          }
+      }
+      var s = "<table class='table'><tr><th scope='col'>nº 1</th><th scope='col'>nº 2</th><th scope='col'>nº 3</th><th scope='col'>nº 4</th><th scope='col'>nº 5</th><th scope='col'>nº 6</th></tr>";
+      
+      s+="<tr>";
+      for (var i = 0; i < 6; i++) {
+        
+          
+          s+="<th>"+vetNum[i]+"</th>";
+      }
+      s+="</tr></table>";
+
+      $("#displayNumMeg").empty();
+      $("#displayNumMeg").append(s);
+   };
+      
+  </script>
+   
+
+
 </head>
 <body>
 
-<h2>Alterando...</h2>
-<p>JQUERY!</p>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header" id="menu">
+          <a class="navbar-brand" href="#"><button id ="calc" type="button" class="btn btn-outline-primary">Calculadora</button></a>
+          <a class="navbar-brand" href="#"><button id ="parc" type="button" class="btn btn-outline-primary">Parcelamento</button></a>
+          <a class="navbar-brand" href="#"><button id ="meg" type="button" class="btn btn-outline-primary">MegaSena</button></a>
+        </div>
+      </div>
+    </nav>
+
+    
+      
+        <div id="idformuCalc" style="display: none">
+          <form>
+            <input type="text" id="num1" value="">
+            <select id="op">
+              <option>+</option>
+              <option>-</option>
+              <option>*</option>
+              <option>/</option>
+              <option>%</option>
+              <option>==</option>
+            </select>
+            <input type="text" id="num2" value="">=
+            <input type="text" id="resultSum" value="RESULT HERE">
+            <button class="btn btn-primary" id="simu" onclick="calFunc()">Resultado</button>
+
+
+
+
+          </form>
+        </div>
+
+
+      <div id= "idFormSim" style="display: none">
+            <h2>Simulador:</h2>
+            <form>
+                Valor: <input type="text" id="valor" class="input-group mb-3" value=''>
+                Qtd parcelar:<input type="text" id="nparcelas" class="input-group mb-3" value=''>
+                <button class="btn btn-primary" id="simu" onclick="fazConta()">Simular</button>
+
+            </form>
+            <div id="displayResult"></div>
+      </div>
+
+      <div id="idFormMeg" style="display: none">
+        <form>
+
+           <div id="displayNumMeg"><table class='table'><tr><th scope='col'>nº 1</th><th scope='col'>nº 2</th><th scope='col'>nº 3</th><th scope='col'>nº 4</th><th scope='col'>nº 5</th><th scope='col'>nº 6</th></tr></table><br><br>Clique para gerar números:</div>
+          <button class="btn btn-primary" type="submit" id="btMegaSena" onclick="funMega()">Calcular</button>
+        
+        </form>
+      </div>
 
 </body>
 </html>
